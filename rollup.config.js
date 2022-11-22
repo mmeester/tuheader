@@ -59,7 +59,7 @@ export default () => {
       node({
         extensions: ['.vue', '.ts']
       }),
-      css({ output: 'dist/tu-header.css' }),
+      css({ output: 'assets/tu-header.css' }),
       vue({ css: false }),
     ]
   }]
