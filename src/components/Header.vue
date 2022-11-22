@@ -6,6 +6,6 @@ const showMenu = ref(true);
 
 <template>
   <header v-if="showMenu">
-    <h1>My App</h1>
+    <h1>TU Header</h1>
   </header>
 </template>

@@ -1,10 +1,10 @@
 import HeaderComponent from './src/components/Header.vue';
 
-export const TUHeader = {
+export const TuHeader = {
   install(Vue) {
-    Vue.component('TUHeader', TUHeader);
+    Vue.component('TuHeader', HeaderComponent);
   },
 };
 
-export const TUHeaderCompent = HeaderComponent;
-export default TUHeader;
+export const TuHeaderComponent = HeaderComponent;
+export default TuHeader;
