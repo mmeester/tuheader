@@ -63,14 +63,14 @@ const displayRights = computed(() => {
 </script>
 
 <template>
-  <header>
+  <header class="tu-header">
     <h1>TU Header</h1>
     <div v-if="isLoggedIn">Ingelogd: {{ username }} | rechten: {{ displayRights }}</div>
   </header>
 </template>
 
 <style scoped>
-header { 
+.tu-header { 
   background-color: #007d30;
   color: #fff;
   padding: 10px;
