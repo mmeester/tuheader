@@ -1,6 +1,6 @@
 {
   "name": "tu-header",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "POC on header for TU",
   "main": "main.js",
   "scripts": {
