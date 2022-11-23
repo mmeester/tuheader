@@ -57,6 +57,7 @@ export default () => {
     },
     plugins: [
       node({
+        browser: true,
         extensions: ['.vue', '.ts']
       }),
       css({ output: 'assets/tu-header.css' }),
