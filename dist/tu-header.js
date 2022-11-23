@@ -1,4 +1,4 @@
-/*! TU Header v1.2.0 */
+/*! TU Header v1.2.1 */
 /**
  * Make a map and return a function for checking if a key
  * is in that map.
