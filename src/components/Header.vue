@@ -64,8 +64,9 @@ const displayRights = computed(() => {
 
 <template>
   <header class="tu-header">
-    <h1>TU Header</h1>
+    <h1>TU Header #2</h1>
     <div v-if="isLoggedIn">Ingelogd: {{ username }} | rechten: {{ displayRights }}</div>
+    <div v-else>Niet ingelogd:</div>
   </header>
 </template>
 

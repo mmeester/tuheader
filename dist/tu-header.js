@@ -1,4 +1,4 @@
-/*! TU Header v1.2.4 */
+/*! TU Header v1.2.6 */
 /**
  * Make a map and return a function for checking if a key
  * is in that map.
@@ -1096,16 +1096,6 @@ function setupBlock(vnode) {
 function createElementBlock(type, props, children, patchFlag, dynamicProps, shapeFlag) {
     return setupBlock(createBaseVNode(type, props, children, patchFlag, dynamicProps, shapeFlag, true /* isBlock */));
 }
-/**
- * Create a block root vnode. Takes the same exact arguments as `createVNode`.
- * A block root keeps track of dynamic nodes within the block in the
- * `dynamicChildren` array.
- *
- * @private
- */
-function createBlock(type, props, children, patchFlag, dynamicProps) {
-    return setupBlock(createVNode(type, props, children, patchFlag, dynamicProps, true /* isBlock: prevent a block from tracking itself */));
-}
 function isVNode(value) {
     return value ? value.__v_isVNode === true : false;
 }
@@ -1305,17 +1295,6 @@ function cloneVNode(vnode, extraProps, mergeRef = false) {
  */
 function createTextVNode(text = ' ', flag = 0) {
     return createVNode(Text, null, text, flag);
-}
-/**
- * @private
- */
-function createCommentVNode(text = '', 
-// when used as the v-else branch, the comment node must be created as a
-// block to ensure correct updates.
-asBlock = false) {
-    return asBlock
-        ? (openBlock(), createBlock(Comment, null, text))
-        : createVNode(Comment, null, text);
 }
 function normalizeChildren(vnode, children) {
     let type = 0;
@@ -13786,8 +13765,9 @@ var ApolloClient = (function () {
 
 const _withScopeId = n => (pushScopeId("data-v-61dd7a3d"),n=n(),popScopeId(),n);
 const _hoisted_1 = { class: "tu-header" };
-const _hoisted_2 = /*#__PURE__*/ _withScopeId(() => /*#__PURE__*/createBaseVNode("h1", null, "TU Header", -1 /* HOISTED */));
+const _hoisted_2 = /*#__PURE__*/ _withScopeId(() => /*#__PURE__*/createBaseVNode("h1", null, "TU Header #2", -1 /* HOISTED */));
 const _hoisted_3 = { key: 0 };
+const _hoisted_4 = { key: 1 };
 
 
 var script = {
@@ -13859,7 +13839,7 @@ return (_ctx, _cache) => {
     _hoisted_2,
     (unref(isLoggedIn))
       ? (openBlock(), createElementBlock("div", _hoisted_3, "Ingelogd: " + toDisplayString(username.value) + " | rechten: " + toDisplayString(unref(displayRights)), 1 /* TEXT */))
-      : createCommentVNode("v-if", true)
+      : (openBlock(), createElementBlock("div", _hoisted_4, "Niet ingelogd:"))
   ]))
 }
 }
