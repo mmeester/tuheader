@@ -1,4 +1,4 @@
-/*! TU Header v1.2.2 */
+/*! TU Header v1.2.3 */
 /**
  * Make a map and return a function for checking if a key
  * is in that map.
@@ -15457,4 +15457,12 @@ return (_ctx, _cache) => {
 script.__scopeId = "data-v-61dd7a3d";
 script.__file = "src/components/Header.vue";
 
-export { script as default };
+const TuHeader = {
+  install(Vue) {
+    Vue.component('TuHeader', script);
+  },
+};
+
+const TuHeaderComponent = script;
+
+export { TuHeader, TuHeaderComponent, TuHeader as default };

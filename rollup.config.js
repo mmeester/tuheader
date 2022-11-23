@@ -49,7 +49,7 @@ const capitalize = (s) => {
 
 export default () => {
   let config = [{
-    input: 'src/components/Header.vue',
+    input: 'main.js',
     output: {
       format: 'esm',
       file: 'dist/tu-header.js',
@@ -57,11 +57,11 @@ export default () => {
     },
     plugins: [
       node({
-        browser: true,
         extensions: ['.vue', '.ts']
       }),
       css({ output: 'assets/tu-header.css' }),
       vue({ css: false }),
+      node()
     ]
   }]
 
