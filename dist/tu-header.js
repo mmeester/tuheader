@@ -1,4 +1,4 @@
-/*! TU Header v1.2.7 */
+/*! TU Header v1.2.9 */
 /**
  * Make a map and return a function for checking if a key
  * is in that map.
@@ -117,6 +117,10 @@ const replacer = (_key, val) => {
 };
 const EMPTY_ARR = [];
 const NOOP = () => { };
+/**
+ * Always return false.
+ */
+const NO = () => false;
 const onRE = /^on[^a-z]/;
 const isOn = (key) => onRE.test(key);
 const extend = Object.assign;
@@ -964,9 +968,6 @@ class RefImpl {
         }
     }
 }
-function unref(ref) {
-    return isRef(ref) ? ref.value : ref;
-}
 
 var _a$4;
 class ComputedRefImpl {
@@ -1026,6 +1027,28 @@ let currentScopeId = null;
 
 const isSuspense = (type) => type.__isSuspense;
 const NULL_DYNAMIC_COMPONENT = Symbol();
+
+function createAppContext() {
+    return {
+        app: null,
+        config: {
+            isNativeTag: NO,
+            performance: false,
+            globalProperties: {},
+            optionMergeStrategies: {},
+            errorHandler: undefined,
+            warnHandler: undefined,
+            compilerOptions: {}
+        },
+        mixins: [],
+        components: {},
+        directives: {},
+        provides: Object.create(null),
+        optionsCache: new WeakMap(),
+        propsCache: new WeakMap(),
+        emitsCache: new WeakMap()
+    };
+}
 
 const isTeleport = (type) => type.__isTeleport;
 
@@ -1370,6 +1393,8 @@ function mergeProps(...args) {
     }
     return ret;
 }
+
+createAppContext();
 let isInSSRComponentSetup = false;
 function isClassComponent(value) {
     return isFunction(value) && '__vccOpts' in value;
@@ -13776,47 +13801,37 @@ var ApolloClient = (function () {
     return ApolloClient;
 }());
 
-const _hoisted_1 = { class: "tu-header" };
-const _hoisted_2 = { key: 0 };
-const _hoisted_3 = { key: 1 };
-
-
 var script = {
-  __name: 'Header',
   props: {
-  endpoint: {
-    type: String,
-    required: true,
-  },
-},
-  setup(__props) {
+      endpoint: {
+        type: String,
+        required: true,
+      },
+    },
+  setup(props) {
+    
+    const state = ref('idle');
+    const username = ref('');
+    const roles = ref([]);
+    const count = ref(1);
 
-const props = __props;
+    if (props.endpoint) {
+      // HTTP connection to the API
+      const httpLink = createHttpLink({
+        // You should use an absolute URL here
+        uri: props.endpoint,
+      });
 
+      // Cache implementation
+      const cache = new InMemoryCache();
 
+      // Create the apollo client
+      const apolloClient = new ApolloClient({
+        link: httpLink,
+        cache,
+      });
 
-const state = ref('idle');
-const username = ref('');
-const roles = ref([]);
-const count = ref(1);
-
-if(props.endpoint) { 
-  // HTTP connection to the API
-  const httpLink = createHttpLink({
-    // You should use an absolute URL here
-    uri: props.endpoint,
-  });
-
-  // Cache implementation
-  const cache = new InMemoryCache();
-
-  // Create the apollo client
-  const apolloClient = new ApolloClient({
-    link: httpLink,
-    cache,
-  });
-
-  let query = gql$1`
+      let query = gql$1`
     query CurrentUser {
       CurrentUser {
         username
@@ -13826,42 +13841,54 @@ if(props.endpoint) {
       }
     }
   `;
-  apolloClient.query({query}).then((results) => {
-      if (results.data.CurrentUser) {
+      apolloClient.query({ query }).then((results) => {
+        if (results.data.CurrentUser) {
           state.value = 'logged-in';
           username.value = results.data.CurrentUser.username;
           roles.value = results.data.CurrentUser.roles;
-      }else { 
+        } else {
           state.value = 'not-logged-in';
-      }
-  });
-}
+        }
+      });
+    }
 
-const isLoggedIn = computed(() => {
-    return state.value === 'logged-in';
-});
+    const isLoggedIn = computed(() => {
+      return state.value === 'logged-in';
+    });
 
-const displayRights = computed(() => {
-    return roles.value.map((role) => role.id).join(', ');
-});
+    const displayRights = computed(() => {
+      return roles.value.map((role) => role.id).join(', ');
+    });
 
+    return {
+      state,
+      username,
+      roles,
+      count,
+      isLoggedIn,
+      displayRights,
+    }
+  }
+};
 
-return (_ctx, _cache) => {
+const _hoisted_1 = { class: "tu-header" };
+const _hoisted_2 = { key: 0 };
+const _hoisted_3 = { key: 1 };
+
+function render(_ctx, _cache, $props, $setup, $data, $options) {
   return (openBlock(), createElementBlock("header", _hoisted_1, [
-    createBaseVNode("h1", null, "TU Header #" + toDisplayString(count.value), 1 /* TEXT */),
-    (unref(isLoggedIn))
-      ? (openBlock(), createElementBlock("div", _hoisted_2, "Ingelogd: " + toDisplayString(username.value) + " | rechten: " + toDisplayString(unref(displayRights)), 1 /* TEXT */))
+    createBaseVNode("h1", null, "TU Header #" + toDisplayString($setup.count), 1 /* TEXT */),
+    ($setup.isLoggedIn)
+      ? (openBlock(), createElementBlock("div", _hoisted_2, "Ingelogd: " + toDisplayString($setup.username) + " | rechten: " + toDisplayString($setup.displayRights), 1 /* TEXT */))
       : (openBlock(), createElementBlock("div", _hoisted_3, "Niet ingelogd:")),
     createBaseVNode("a", {
       href: "#",
-      onClick: _cache[0] || (_cache[0] = withModifiers($event => (count.value=count.value+1), ["prevent"]))
+      onClick: _cache[0] || (_cache[0] = withModifiers($event => ($setup.count = $setup.count + 1), ["prevent"]))
     }, "Add count")
   ]))
 }
-}
 
-};
-
+script.render = render;
 script.__scopeId = "data-v-61dd7a3d";
 script.__file = "src/components/Header.vue";
 

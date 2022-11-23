@@ -5,7 +5,7 @@ import packageInfo from './package.json'
 import vue from 'rollup-plugin-vue'
 import css from 'rollup-plugin-css-only'
 import node from '@rollup/plugin-node-resolve'
-import commonjs from 'rollup-plugin-commonjs';
+// import commonjs from 'rollup-plugin-commonjs';
 import replace from 'rollup-plugin-replace';
 import { terser } from 'rollup-plugin-terser'
 
@@ -61,7 +61,7 @@ export default () => {
       replace({
         'process.env.NODE_ENV': JSON.stringify('production'),
       }),
-      commonjs(), // add support for CommonJS modules
+      // commonjs(), // add support for CommonJS modules
       node({
         extensions: ['.vue', '.ts']
       }),
