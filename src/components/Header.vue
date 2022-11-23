@@ -14,6 +14,7 @@ const props = defineProps({
 const state = ref('idle');
 const username = ref('');
 const roles = ref([]);
+const count = ref(1);
 
 if(props.endpoint) { 
   // HTTP connection to the API
@@ -64,9 +65,11 @@ const displayRights = computed(() => {
 
 <template>
   <header class="tu-header">
-    <h1>TU Header #2</h1>
+    <h1>TU Header #{{count}}</h1>
     <div v-if="isLoggedIn">Ingelogd: {{ username }} | rechten: {{ displayRights }}</div>
     <div v-else>Niet ingelogd:</div>
+    
+    <a href="#" @click.prevent="count=count+1">Add count</a>
   </header>
 </template>
 
