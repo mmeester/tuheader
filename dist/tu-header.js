@@ -1,4 +1,4 @@
-/*! TU Header v1.2.9 */
+/*! TU Header v1.2.13 */
 /**
  * Make a map and return a function for checking if a key
  * is in that map.
@@ -13809,7 +13809,6 @@ var script = {
       },
     },
   setup(props) {
-    
     const state = ref('idle');
     const username = ref('');
     const roles = ref([]);
