@@ -1,5 +1,5 @@
 <script>
-import { ref, computed } from 'vue';
+import { ref, computed } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.prod.js';
 
 import gql from 'graphql-tag';
 import { ApolloClient, createHttpLink, InMemoryCache } from '@apollo/client/core'
@@ -12,7 +12,6 @@ export default {
       },
     },
   setup(props) {
-    
     const state = ref('idle');
     const username = ref('');
     const roles = ref([]);
