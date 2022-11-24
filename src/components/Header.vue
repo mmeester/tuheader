@@ -4,6 +4,8 @@ import { ref, computed } from 'vue';
 import gql from 'graphql-tag';
 import { ApolloClient, createHttpLink, InMemoryCache } from '@apollo/client/core'
 
+console.log(ref);
+
 export default {
   props: {
       endpoint: {
@@ -44,6 +46,7 @@ export default {
     }
   `
       apolloClient.query({ query }).then((results) => {
+        console.log('apollo results', results);
         if (results.data.CurrentUser) {
           state.value = 'logged-in';
           username.value = results.data.CurrentUser.username;
@@ -51,6 +54,8 @@ export default {
         } else {
           state.value = 'not-logged-in';
         }
+      }, (error) => {
+        console.log('apollo error', error);
       })
     }
 
