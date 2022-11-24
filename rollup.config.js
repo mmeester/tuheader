@@ -66,7 +66,7 @@ export default () => {
         extensions: ['.vue', '.ts']
       }),
       css({ output: 'assets/tu-header.css' }),
-      vue({ css: false }),
+      vue({ target: "browser", css: false }),
 
     ]
   }]

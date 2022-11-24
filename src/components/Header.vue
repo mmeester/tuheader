@@ -1,5 +1,5 @@
 <script>
-import { ref, computed } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.prod.js';
+import { ref, computed } from 'vue';
 
 import gql from 'graphql-tag';
 import { ApolloClient, createHttpLink, InMemoryCache } from '@apollo/client/core'
